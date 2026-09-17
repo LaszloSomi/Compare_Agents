@@ -1,0 +1,17 @@
+[
+  {
+    "id": "finance-faq",
+    "displayName": "Finance FAQ",
+    "shortDescription": "Answers common employee finance questions.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"],
+    "elementDetails": []
+  },
+  {
+    "id": "finance-help",
+    "displayName": "Finance Help",
+    "shortDescription": "Helps employees with finance questions and processes.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"]
+  }
+]

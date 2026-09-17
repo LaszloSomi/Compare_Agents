@@ -1,0 +1,91 @@
+[
+  {
+    "id": "hr-global",
+    "displayName": "Global HR Policy Assistant",
+    "shortDescription": "Answers employee questions about company HR policies, benefits, and leave.",
+    "longDescription": "Helps all employees understand global HR policies and benefits.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"],
+    "deployedTo": "all",
+    "lastModifiedDateTime": "2026-06-01T12:00:00Z",
+    "elementDetails": [
+      {
+        "elementType": "declarativeAgent",
+        "elements": [
+          {
+            "id": "hr-global-da",
+            "definition": "{\"knowledgeSources\":[{\"type\":\"sharePoint\",\"url\":\"https://contoso.sharepoint.com/sites/HRPolicies\"}],\"actions\":[\"searchPolicy\",\"explainBenefits\"]}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "hr-emea",
+    "displayName": "EMEA HR Answers",
+    "shortDescription": "Answers HR policy, benefits, and leave questions for EMEA employees.",
+    "longDescription": "Provides global and EMEA-specific policy guidance and can look up leave balances.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"],
+    "deployedTo": "some",
+    "lastModifiedDateTime": "2026-07-15T09:30:00Z",
+    "elementDetails": [
+      {
+        "elementType": "declarativeAgent",
+        "elements": [
+          {
+            "id": "hr-emea-da",
+            "definition": "{\"knowledgeSources\":[{\"type\":\"sharePoint\",\"url\":\"https://contoso.sharepoint.com/sites/HRPolicies\"},{\"type\":\"sharePoint\",\"url\":\"https://contoso.sharepoint.com/sites/HRPolicies/EMEA\"}],\"actions\":[\"searchPolicy\",\"explainBenefits\",\"getLeaveBalance\"]}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "sales-brief",
+    "displayName": "Sales Account Brief",
+    "shortDescription": "Creates account briefings for sellers before customer meetings.",
+    "longDescription": "Summarizes account activity and recent customer interactions.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"],
+    "elementDetails": [
+      {
+        "elementType": "declarativeAgent",
+        "elements": [
+          {
+            "id": "sales-brief-da",
+            "definition": "{\"knowledgeSources\":[{\"type\":\"connector\",\"name\":\"Dynamics 365 Sales\"}],\"actions\":[\"buildAccountBrief\"]}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "meeting-prep",
+    "displayName": "Customer Meeting Prep",
+    "shortDescription": "Prepares sellers for customer meetings with an account summary.",
+    "longDescription": "Builds concise customer meeting preparation notes.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot"],
+    "elementDetails": []
+  },
+  {
+    "id": "it-incidents",
+    "displayName": "IT Incident Helper",
+    "shortDescription": "Helps employees troubleshoot IT incidents and open support tickets.",
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "supportedHosts": ["Copilot", "Teams"],
+    "elementDetails": [
+      {
+        "elementType": "declarativeAgent",
+        "elements": [
+          {
+            "id": "it-da",
+            "definition": "{\"knowledgeSources\":[{\"type\":\"website\",\"url\":\"https://support.contoso.com/kb\"}],\"actions\":[\"createServiceNowIncident\"]}"
+          }
+        ]
+      }
+    ]
+  }
+]
+

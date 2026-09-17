@@ -1,0 +1,470 @@
+[
+  {
+    "id": "T_regress01",
+    "displayName": "Alpha KB",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Widget assembly knowledge base agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000001",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E1",
+            "definition": "{\"id\": \"aaaaaaa1-0000-4000-8000-000000000001\", \"version\": \"1.6\", \"name\": \"Alpha KB\", \"description\": \"Widget assembly knowledge base agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress02",
+    "displayName": "Alpha KB Copy",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Widget assembly knowledge base agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000002",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E2",
+            "definition": "{\"id\": \"aaaaaaa2-0000-4000-8000-000000000002\", \"version\": \"1.6\", \"name\": \"Alpha KB Copy\", \"description\": \"Widget assembly knowledge base agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress03",
+    "displayName": "Beta KB",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Widget assembly knowledge base agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000003",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E3",
+            "definition": "{\"id\": \"aaaaaaa3-0000-4000-8000-000000000003\", \"version\": \"1.6\", \"name\": \"Beta KB\", \"description\": \"Widget assembly knowledge base agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB2\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress04",
+    "displayName": "Gamma Unknown A",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Assists with internal onboarding paperwork.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000004",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E4",
+            "definition": "{\"id\": \"aaaaaaa4-0000-4000-8000-000000000004\", \"version\": \"1.6\", \"name\": \"Gamma Unknown A\", \"description\": \"Assists with internal onboarding paperwork.\", \"instructions\": \"Guide new joiners through onboarding paperwork and checklists.\", \"capabilities\": [], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress05",
+    "displayName": "Gamma Unknown B",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Assists with internal onboarding paperwork.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000005",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E5",
+            "definition": "{\"id\": \"aaaaaaa5-0000-4000-8000-000000000005\", \"version\": \"1.6\", \"name\": \"Gamma Unknown B\", \"description\": \"Assists with internal onboarding paperwork.\", \"instructions\": \"Guide new joiners through onboarding paperwork and checklists.\", \"capabilities\": [], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress06",
+    "displayName": "Delta CRM",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Sales pipeline reporting agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000006",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E6",
+            "definition": "{\"id\": \"aaaaaaa6-0000-4000-8000-000000000006\", \"version\": \"1.6\", \"name\": \"Delta CRM\", \"description\": \"Sales pipeline reporting agent.\", \"instructions\": \"Retrieve customer opportunity records, pipeline stage and renewal dates from the CRM.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"ZetaCRM1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress07",
+    "displayName": "Heavy Usage Agent",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "High volume support agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": "2026-08-18T00:00:00Z",
+    "totalSessions": 50000,
+    "activeUsers": 900,
+    "totalRunTimeInHours": 4000.0,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000007",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E7",
+            "definition": "{\"id\": \"aaaaaaa7-0000-4000-8000-000000000007\", \"version\": \"1.6\", \"name\": \"Heavy Usage Agent\", \"description\": \"High volume support agent.\", \"instructions\": \"Retrieve customer opportunity records, pipeline stage and renewal dates from the CRM.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"ZetaCRM1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress08",
+    "displayName": "Modest Usage Agent",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Team helper agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": "2026-08-15T00:00:00Z",
+    "totalSessions": 40,
+    "activeUsers": 3,
+    "totalRunTimeInHours": 2.5,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000008",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E8",
+            "definition": "{\"id\": \"aaaaaaa8-0000-4000-8000-000000000008\", \"version\": \"1.6\", \"name\": \"Modest Usage Agent\", \"description\": \"Team helper agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress09",
+    "displayName": "Zero Evidence Agent",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Rarely used utility agent.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000009",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E9",
+            "definition": "{\"id\": \"aaaaaaa9-0000-4000-8000-000000000009\", \"version\": \"1.6\", \"name\": \"Zero Evidence Agent\", \"description\": \"Rarely used utility agent.\", \"instructions\": \"Provide occasional formatting help.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress10",
+    "displayName": "Brand New Agent",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Newly published pilot agent.",
+    "createdDateTime": "2026-08-14T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000000",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E10",
+            "definition": "{\"id\": \"aaaaaa10-0000-4000-8000-000000000010\", \"version\": \"1.6\", \"name\": \"Brand New Agent\", \"description\": \"Newly published pilot agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress11",
+    "displayName": "Stale But Used Agent",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Departmental helper agent with real but older usage.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": "2026-05-12T00:00:00Z",
+    "totalSessions": 38,
+    "activeUsers": 2,
+    "totalRunTimeInHours": 1.5,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000008",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E11",
+            "definition": "{\"id\": \"aaaaaa11-0000-4000-8000-000000000011\", \"version\": \"1.6\", \"name\": \"Stale But Used Agent\", \"description\": \"Team helper agent.\", \"instructions\": \"Answer questions about widget assembly procedures, torque specifications and calibration steps.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"AcmeKB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress12",
+    "displayName": "Torque Spec Lookup",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Retrieves fastener tightening values for maintenance engineers.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000001",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E12",
+            "definition": "{\"id\": \"aaaaaa12-0000-4000-8000-000000000012\", \"version\": \"1.6\", \"name\": \"Torque Spec Lookup\", \"description\": \"Retrieves fastener tightening values for maintenance engineers.\", \"instructions\": \"Given a fastener identifier, return the tightening value, tolerance band and inspection interval. Escalate ambiguous identifiers to the maintenance supervisor.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"BoltDB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "T_regress13",
+    "displayName": "Assembly Line Advisor",
+    "shortDescription": "Built using Microsoft 365 Copilot Agent Builder",
+    "longDescription": "Shop-floor guidance for production staff.",
+    "createdDateTime": "2025-01-10T00:00:00Z",
+    "lastModifiedDateTime": "2026-01-01T00:00:00Z",
+    "lastUsedDateTime": null,
+    "totalSessions": null,
+    "activeUsers": null,
+    "totalRunTimeInHours": null,
+    "isBlocked": false,
+    "availableTo": "allowedForAll",
+    "deployedTo": "acquiredForNone",
+    "supportedHosts": [
+      "Copilot"
+    ],
+    "platform": "Microsoft 365 Copilot Agent Builder",
+    "publisher": "Regression",
+    "ownerId": "00000000-0000-0000-0000-000000000001",
+    "version": "1.0.0",
+    "elementTypes": [
+      "DeclarativeCopilots"
+    ],
+    "elementDetails": [
+      {
+        "elementType": "DeclarativeCopilots",
+        "elements": [
+          {
+            "id": "E13",
+            "definition": "{\"id\": \"aaaaaa13-0000-4000-8000-000000000013\", \"version\": \"1.6\", \"name\": \"Assembly Line Advisor\", \"description\": \"Shop-floor guidance for production staff.\", \"instructions\": \"Walk production staff through station setup, changeover sequencing and quality gate checks. Reference the standard operating procedure library when uncertain.\", \"capabilities\": [{\"name\": \"GraphConnectors\", \"connections\": [{\"connection_id\": \"BoltDB1\"}]}], \"conversation_starters\": []}"
+          }
+        ]
+      }
+    ]
+  }
+]

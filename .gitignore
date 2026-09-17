@@ -1,0 +1,59 @@
+# ---------------------------------------------------------------------------
+# TENANT DATA — never commit these.
+#
+# Every file below can contain real agent names, descriptions, owner object IDs,
+# data-source URLs, group identifiers and usage telemetry for a live tenant.
+# Running any script in this repository produces them. They are outputs, not
+# source, and they belong wherever your organisation keeps tenant data.
+# ---------------------------------------------------------------------------
+
+# Raw exports
+agent-builder-inventory.json
+agent-builder-details.json
+agent-builder-details.selected.json
+export-metadata.json
+
+# Analysis outputs
+agent-usage-priority.csv
+agent-comparison-candidates.csv
+agent-purpose-similarity.csv
+agent-consolidation-clusters.csv
+
+# Lifecycle and deletion outputs
+agent-lifecycle-decisions.csv
+agent-block-ledger.csv
+agent-block-history.csv
+agent-deletion-worklist.csv
+raw-audit.csv
+
+# Generated reports
+compare-agents-report.md
+compare-agents-report.html
+
+# Default and common output directories
+Compare-Agents-Export/
+export/
+Export/
+out/
+output/
+
+# Belt and braces: anything that looks like an export or a report
+*agent-builder-details*.json
+*agent-block*.csv
+*-worklist.csv
+*compare-agents-report*.html
+
+# ...except the synthetic test fixtures, which contain no tenant data and are
+# required for the regression suite to run on a fresh clone.
+!evals/fixtures/
+!evals/fixtures/**
+
+# ---------------------------------------------------------------------------
+# Tooling
+# ---------------------------------------------------------------------------
+*.log
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

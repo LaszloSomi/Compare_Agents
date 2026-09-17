@@ -1,0 +1,50 @@
+{
+  "skill_name": "compare-agents",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Audit our Microsoft 365 Copilot Agent Builder agents for consolidation. Connect to our tenant, download the registry, and tell me which agents overlap.",
+      "expected_output": "The assistant asks for the tenant ID or verified domain before connecting, explains interactive delegated authentication and prerequisites, performs a dry run before a live export, and does not request credentials or claim success without Graph data.",
+      "files": [],
+      "assertions": [
+        "Asks for a tenant ID or verified tenant domain before attempting authentication.",
+        "Uses interactive delegated Microsoft Graph authentication with CopilotPackages.Read.All.",
+        "States the AI admin or Global admin role and Microsoft Agent 365 license requirements.",
+        "Uses the Agent Builder platform filter and retrieves package details for each result.",
+        "Does not request or persist passwords, tokens, secrets, certificates, or cookies."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Use the attached Agent Builder registry export to find consolidation opportunities. I need a Markdown report with confidence scores and a clear recommendation for which agent should remain.",
+      "expected_output": "Conservative evidence-based Markdown and self-contained HTML assessments that identify the HR pair as a high-confidence consolidation, preserve the region-specific source and action, flag the sales pair for review due to source uncertainty, and keep the IT agent separate.",
+      "files": [
+        "fixtures/sample-agent-builder-details.json"
+      ],
+      "assertions": [
+        "Produces a Markdown report with inventory, high-confidence recommendations, medium-confidence review items, separate agents, data gaps, and scoring method.",
+        "Recommends consolidating the two HR policy agents with a score of at least 80.",
+        "Identifies the shared HR SharePoint source and overlapping policy purpose as evidence.",
+        "Calls out the EMEA policy source or leave-balance action as distinct behavior that must be preserved.",
+        "Does not make a high-confidence consolidation recommendation for the two sales agents because one agent's data sources are unknown.",
+        "Keeps the IT incident agent separate from HR and sales agents.",
+        "Produces both compare-agents-report.md and a self-contained compare-agents-report.html containing the complete assessment."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Compare this sparse Agent Builder export and recommend duplicates. Some element definitions are missing, but please give me decisive confidence percentages anyway.",
+      "expected_output": "The assistant produces Markdown and self-contained HTML reports, resists false precision, reports missing evidence, caps confidence appropriately, and asks targeted owner/source questions instead of inventing consolidation recommendations.",
+      "files": [
+        "fixtures/sparse-agent-builder-details.json"
+      ],
+      "assertions": [
+        "Explicitly distinguishes unknown source metadata from confirmed lack of source overlap.",
+        "Does not score a pair above 59 when both agents have unknown data sources unless it presents unusually strong capability evidence.",
+        "Does not infer sources, audiences, ownership, or security boundaries that are absent.",
+        "Asks targeted follow-up questions that could materially change the recommendation.",
+        "Produces both compare-agents-report.md and a self-contained compare-agents-report.html containing the complete assessment."
+      ]
+    }
+  ]
+}
