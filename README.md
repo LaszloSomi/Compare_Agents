@@ -135,7 +135,16 @@ decision CSV.
 
 Running these scripts produces files containing real agent names, descriptions, owner object IDs,
 data-source URLs and usage telemetry. **`.gitignore` already excludes every one of them**, so a
-clone of this repository will not accidentally publish your tenant.
+clone of this repository will not accidentally publish your tenant. That includes custom
+`-OutputDirectory` and `-CsvPath` names, because the repository ships no CSV of its own and
+therefore ignores the extension outright.
+
+Even so, the safest habit is to **write exports somewhere outside the repository**:
+
+```powershell
+.\scripts\Export-AgentBuilderAgents.ps1 -TenantId "contoso.onmicrosoft.com" `
+  -OutputDirectory "$env:USERPROFILE\Documents\Compare-Agents-Export" -LiveMode
+```
 
 Store and share exports according to your organisation's data-handling requirements. Nothing in
 this tool transmits data anywhere except to Microsoft Graph.

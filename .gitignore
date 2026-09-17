@@ -43,6 +43,11 @@ output/
 *-worklist.csv
 *compare-agents-report*.html
 
+# Every CSV this repository can produce is tenant data, and it ships no CSV of its
+# own. Blocking the extension outright also covers custom -CsvPath / -OutputDirectory
+# names, which the specific patterns above would miss.
+*.csv
+
 # ...except the synthetic test fixtures, which contain no tenant data and are
 # required for the regression suite to run on a fresh clone.
 !evals/fixtures/
