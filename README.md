@@ -68,6 +68,20 @@ cd compare-agents
   -DetailsPath ".\Compare-Agents-Export\agent-builder-details.json"
 ```
 
+By default the export covers **Agent Builder agents only**, because that is what the consolidation
+analysis is scoped to. To inventory the whole registry — Copilot Studio, Agents Toolkit, and every
+other platform the tenant holds — pass `-Platform All`:
+
+```powershell
+.\scripts\Export-AgentBuilderAgents.ps1 -TenantId "contoso.onmicrosoft.com" `
+  -OutputDirectory ".\Compare-Agents-Export" -Platform All -LiveMode
+```
+
+That writes `all-agents-inventory.json` / `all-agents-details.json` instead, prints a per-platform
+breakdown, and records the counts in `export-metadata.json`. On a reference tenant the full
+registry was **691 agents across 11 platforms**, of which only 95 were Agent Builder — so the
+default view is a small slice of what exists.
+
 > **Run the export from a real terminal window.** Interactive browser sign-in cannot complete
 > inside an embedded/integrated terminal, because the auth broker needs a parent window handle.
 > It fails with `InteractiveBrowserCredential authentication failed: A window handle must be

@@ -11,6 +11,10 @@ param(
     [string]$OutputDirectory = (Join-Path (Get-Location) "Compare-Agents-Export-$(Get-Date -Format 'yyyy-MM-dd-HHmmss')"),
 
     [Parameter()]
+    [ValidateNotNullOrEmpty()]
+    [string]$Platform = 'Microsoft 365 Copilot Agent Builder',
+
+    [Parameter()]
     [switch]$UseBeta,
 
     [Parameter()]
@@ -48,7 +52,7 @@ param(
 
     [Parameter()]
     [ValidateRange(10, 5000)]
-    [int]$CheckpointEvery = 250,
+    [int]$CheckpointEvery = 50,
 
     [Parameter()]
     [switch]$LiveMode = $false
@@ -58,7 +62,8 @@ $ErrorActionPreference = 'Stop'
 $apiVersion = if ($UseBeta) { 'beta' } else { 'v1.0' }
 $graphRoot = "https://graph.microsoft.com/$apiVersion"
 $requiredScope = 'CopilotPackages.Read.All'
-$checkpointName = 'agent-builder-details.checkpoint.json'
+$checkpointName = if ($Platform -eq 'All') { 'all-agents-details.checkpoint.json' }
+                  else { 'agent-builder-details.checkpoint.json' }
 
 Write-Host "Mode: $(if ($LiveMode) { 'LIVE RUN' } else { 'DRY RUN' })"
 Write-Host "Tenant: $TenantId"
@@ -81,28 +86,48 @@ if (-not (Get-Module -Name Microsoft.Graph.Authentication)) {
     Import-Module Microsoft.Graph.Authentication
 }
 
+$script:PaceMs = 0          # adaptive inter-request pacing, raised when the service pushes back
+
+function Test-GraphThrottled {
+    param($ErrorRecord)
+    # The status line alone is not enough. This service wraps downstream rate limiting in a
+    # 424 Failed Dependency whose *body* carries {"StatusCode":424,"Message":"Too Many Requests"},
+    # so the outer exception message reads only "FailedDependency" and a naive check misses it.
+    $text = @(
+        $ErrorRecord.Exception.Message
+        $ErrorRecord.ErrorDetails.Message
+    ) -join ' '
+    return $text -match '\b429\b|\b424\b|\b503\b|\b504\b|Too Many Requests|Service Unavailable|Failed ?Dependency'
+}
+
 function Invoke-GraphGetWithRetry {
     param(
         [Parameter(Mandatory)]
         [string]$Uri,
 
-        [int]$MaxAttempts = 5
+        [int]$MaxAttempts = 8
     )
 
     for ($attempt = 1; $attempt -le $MaxAttempts; $attempt++) {
         try {
+            if ($script:PaceMs -gt 0) { Start-Sleep -Milliseconds $script:PaceMs }
             return Invoke-MgGraphRequest -Method GET -Uri $Uri
         }
         catch {
-            $message = $_.Exception.Message
-            $isThrottled = $message -match '\b429\b|\b503\b|\b504\b|Too Many Requests|Service Unavailable'
-            if (-not $isThrottled -or $attempt -eq $MaxAttempts) { throw }
+            if (-not (Test-GraphThrottled $_) -or $attempt -eq $MaxAttempts) { throw }
 
             # Honor Retry-After when Graph supplies it, otherwise back off exponentially.
+            $text = @($_.Exception.Message, $_.ErrorDetails.Message) -join ' '
             $delay = [math]::Pow(2, $attempt)
-            if ($message -match 'Retry-After[:\s]+(\d+)') { $delay = [int]$Matches[1] }
+            if ($text -match 'Retry-After[:\s]+(\d+)') { $delay = [int]$Matches[1] }
             $delay = [math]::Min($delay, 120)
-            Write-Warning "Graph throttled (attempt $attempt/$MaxAttempts). Waiting $delay second(s)."
+
+            # Slow every subsequent request too. Backing off only the failed call just walks
+            # straight back into the limit on the next one.
+            $script:PaceMs = [math]::Min($script:PaceMs + 150, 2000)
+
+            Write-Warning ("Graph throttled (attempt $attempt/$MaxAttempts). Waiting $delay second(s); " +
+                           "pacing subsequent requests by $($script:PaceMs)ms.")
             Start-Sleep -Seconds $delay
         }
     }
@@ -177,18 +202,35 @@ try {
         throw "The authenticated session does not include the required '$requiredScope' scope."
     }
 
-    $filterParts = @("platform eq 'Microsoft 365 Copilot Agent Builder'")
+    # 'All' exports every platform in the registry: Agent Builder, Copilot Studio, and anything
+    # else the tenant holds. The default stays Agent Builder because the consolidation analysis
+    # is scoped to it, but the inventory itself need not be.
+    $allPlatforms = $Platform -eq 'All'
+    $filterParts = @()
+    if (-not $allPlatforms) {
+        $filterParts += "platform eq '$($Platform -replace "'", "''")'"
+    }
     if ($PSBoundParameters.ContainsKey('ModifiedSince')) {
         $stamp = $ModifiedSince.ToUniversalTime().ToString('yyyy-MM-ddTHH:mm:ss.fffffffZ')
         $filterParts += "lastModifiedDateTime gt $stamp"
         Write-Warning ('lastModifiedDateTime filters configuration changes, not usage. A stable, ' +
                        'heavily used agent may be excluded. Do not treat this as an activity filter.')
     }
-    $encodedFilter = [uri]::EscapeDataString(($filterParts -join ' and '))
-    $listUri = "$graphRoot/copilot/admin/catalog/packages?`$filter=$encodedFilter"
+    $listUri = "$graphRoot/copilot/admin/catalog/packages"
+    if ($filterParts.Count -gt 0) {
+        $encodedFilter = [uri]::EscapeDataString(($filterParts -join ' and '))
+        $listUri = "$listUri`?`$filter=$encodedFilter"
+    }
     $inventory = @(Invoke-PagedGraphGet -Uri $listUri)
 
-    Write-Host "Agent Builder packages found: $($inventory.Count)"
+    if ($allPlatforms) {
+        Write-Host "Packages found (all platforms): $($inventory.Count)"
+        $inventory | Group-Object platform | Sort-Object Count -Descending |
+            ForEach-Object { Write-Host ("  {0,-44} {1,5}" -f $_.Name, $_.Count) }
+    }
+    else {
+        Write-Host "$Platform packages found: $($inventory.Count)"
+    }
 
     if ($ExcludeBlocked) {
         $before = $inventory.Count
@@ -260,15 +302,24 @@ try {
         authType = $context.AuthType
         apiVersion = $apiVersion
         requiredScope = $requiredScope
-        platformFilter = 'Microsoft 365 Copilot Agent Builder'
+        platformFilter = if ($allPlatforms) { 'All platforms (unfiltered)' } else { $Platform }
+        platformCounts = ($inventory | Group-Object platform |
+                          Sort-Object Count -Descending |
+                          ForEach-Object { [ordered]@{ platform = $_.Name; count = $_.Count } })
         excludeBlocked = [bool]$ExcludeBlocked
         modifiedSince = if ($PSBoundParameters.ContainsKey('ModifiedSince')) { $ModifiedSince.ToUniversalTime().ToString('o') } else { $null }
         inventoryCount = $inventory.Count
         detailCount = $details.Count
     }
 
-    $inventory | ConvertTo-Json -Depth 100 | Set-Content -Path (Join-Path $OutputDirectory 'agent-builder-inventory.json') -Encoding utf8
-    $details.ToArray() | ConvertTo-Json -Depth 100 | Set-Content -Path (Join-Path $OutputDirectory 'agent-builder-details.json') -Encoding utf8
+    # Name the output for what it actually contains: calling an all-platform export
+    # "agent-builder-*" would misrepresent it to every downstream consumer.
+    $prefix = if ($allPlatforms) { 'all-agents' } else { 'agent-builder' }
+    $inventoryFile = Join-Path $OutputDirectory "$prefix-inventory.json"
+    $detailsFileOut = Join-Path $OutputDirectory "$prefix-details.json"
+
+    $inventory | ConvertTo-Json -Depth 100 | Set-Content -Path $inventoryFile -Encoding utf8
+    $details.ToArray() | ConvertTo-Json -Depth 100 | Set-Content -Path $detailsFileOut -Encoding utf8
     $metadata | ConvertTo-Json -Depth 10 | Set-Content -Path (Join-Path $OutputDirectory 'export-metadata.json') -Encoding utf8
 
     if (Test-Path -LiteralPath $checkpointPath) { Remove-Item -LiteralPath $checkpointPath -Force }
@@ -280,8 +331,8 @@ try {
         Write-Host 'Applying usage selection to the exported data...'
         # Delegate to the selector so the usage rules live in exactly one place. The full export is
         # always kept, because re-fetching details is the expensive part and must not be discarded.
-        $detailsFile = Join-Path $OutputDirectory 'agent-builder-details.json'
-        $selectedFile = Join-Path $OutputDirectory 'agent-builder-details.selected.json'
+        $detailsFile = $detailsFileOut
+        $selectedFile = Join-Path $OutputDirectory "$prefix-details.selected.json"
         & (Join-Path $PSScriptRoot 'Select-ActiveAgents.ps1') `
             -DetailsPath $detailsFile -OutputPath $selectedFile `
             -MinSessions $MinSessions -MinActiveUsers $MinActiveUsers `

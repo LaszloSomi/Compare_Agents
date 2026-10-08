@@ -138,6 +138,7 @@ The default export directory contains:
 |---|---|
 | `agent-builder-inventory.json` | Agent Builder packages returned by the registry list API |
 | `agent-builder-details.json` | Detailed metadata for every package |
+| `all-agents-inventory.json` / `all-agents-details.json` | Written instead when `-Platform All` is used |
 | `export-metadata.json` | Tenant context, API version, retrieval time, and counts |
 | `agent-usage-priority.csv` | Per-agent usage priority score, band, and raw telemetry |
 | `agent-comparison-candidates.csv` | Every candidate pair and its route, including `Pruned` pairs that were not compared |
@@ -616,6 +617,14 @@ There is no bulk detail endpoint: the export issues **one detail request per pac
 lifecycle script retry with exponential backoff and honour `Retry-After`, but a full export of a
 large registry takes time and cannot be parallelised away. Plan for it, and prefer re-analysing an
 existing export over re-exporting.
+
+**This service disguises throttling as `424 Failed Dependency`.** The status line says
+`FailedDependency` while the response *body* carries
+`{"StatusCode":424,"Message":"Too Many Requests"}` — so any retry logic that inspects only the
+exception message will treat rate limiting as a hard failure and abort the run. The exporter
+checks the body as well, and raises an adaptive inter-request delay after each throttle rather
+than backing off only the request that failed. Progress is checkpointed every 50 packages and
+`-Resume` continues from it.
 
 ### Filtering does not reduce download cost
 
