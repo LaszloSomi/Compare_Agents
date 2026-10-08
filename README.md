@@ -70,7 +70,9 @@ cd compare-agents
 
 > **Run the export from a real terminal window.** Interactive browser sign-in cannot complete
 > inside an embedded/integrated terminal, because the auth broker needs a parent window handle.
-> Use `-UseDeviceAuthentication` if a browser is unavailable.
+> It fails with `InteractiveBrowserCredential authentication failed: A window handle must be
+> configured`. Launch a standalone `pwsh` console (for example via `Start-Process pwsh`) and run
+> it there, or use `-UseDeviceAuthentication` if no browser is available.
 
 ---
 

@@ -666,7 +666,15 @@ and continue rather than refuse**. Keep the metadata file with its export; do no
 ### Interactive sign-in needs a real terminal
 
 Browser authentication cannot complete inside an embedded terminal — WAM needs a parent window
-handle. Run the export from a real `pwsh` window, or use `-UseDeviceAuthentication`.
+handle, and the attempt fails with `InteractiveBrowserCredential authentication failed: A window
+handle must be configured`. Setting `AZURE_IDENTITY_DISABLE_WAM` does **not** work around it.
+Launch a standalone console (`Start-Process pwsh`) and run the export there, or use
+`-UseDeviceAuthentication`.
+
+Note that `Connect-MgGraph`'s built-in device-code prompt gives up after **120 seconds** of
+inactivity, which is often too short to switch to another device. If you need longer, sign in
+separately and the export will reuse the existing session: it skips authentication when
+`Get-MgContext` already reports the required scope for the same tenant.
 
 ### Policy questions this toolkit cannot answer for you
 

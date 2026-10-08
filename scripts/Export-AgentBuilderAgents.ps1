@@ -137,17 +137,37 @@ function Invoke-PagedGraphGet {
 }
 
 try {
-    $connectParameters = @{
-        TenantId = $TenantId
-        Scopes = $requiredScope
-        NoWelcome = $true
-    }
-    if ($UseDeviceAuthentication) {
-        $connectParameters.UseDeviceAuthentication = $true
+    # Reuse an existing Graph session when one is already established for this tenant with the
+    # required scope. Connect-MgGraph's device-code prompt times out after 120 seconds, which is
+    # not long enough when the operator has to pick up a browser on another device; this lets a
+    # caller authenticate separately and hand the session in.
+    $context = Get-MgContext -ErrorAction SilentlyContinue
+    $reusable = $false
+    if ($null -ne $context -and $requiredScope -in $context.Scopes) {
+        $sameTenant = $TenantId -and (
+            $context.TenantId -eq $TenantId -or
+            $context.Account -like "*@$TenantId" -or
+            ($context.TenantDomain -and $context.TenantDomain -eq $TenantId)
+        )
+        if ($sameTenant -or -not $TenantId) { $reusable = $true }
     }
 
-    Connect-MgGraph @connectParameters
-    $context = Get-MgContext
+    if ($reusable) {
+        Write-Host "Reusing existing Graph session for $($context.Account)"
+    }
+    else {
+        $connectParameters = @{
+            TenantId = $TenantId
+            Scopes = $requiredScope
+            NoWelcome = $true
+        }
+        if ($UseDeviceAuthentication) {
+            $connectParameters.UseDeviceAuthentication = $true
+        }
+
+        Connect-MgGraph @connectParameters
+        $context = Get-MgContext
+    }
 
     if ($null -eq $context) {
         throw 'Microsoft Graph authentication did not return a session context.'
